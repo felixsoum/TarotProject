@@ -32,5 +32,6 @@ public class InteractionController : MonoBehaviour
             previousMousePos = Input.mousePosition;
             card.MoveCard(deltaPos);
         }
+        Cursor.visible = !isInteracting;
 	}
 }
