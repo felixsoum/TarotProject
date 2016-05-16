@@ -24,13 +24,19 @@ public class InteractionController : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             isInteracting = false;
-            card.FinishUse();
+            if (card != null)
+            {
+                card.FinishUse();
+            }
         }
         else if (isInteracting && Input.GetMouseButton(0))
         {
             Vector3 deltaPos = Input.mousePosition - previousMousePos;
             previousMousePos = Input.mousePosition;
-            card.MoveCard(deltaPos);
+            if (card != null)
+            {
+                card.MoveCard(deltaPos);
+            }
         }
         Cursor.visible = !isInteracting;
 	}
