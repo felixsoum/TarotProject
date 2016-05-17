@@ -3,13 +3,13 @@
 public class InteractionController : MonoBehaviour
 {
     public LayerMask interactableLayer;
-    CardController card;
+    InteractableController currentInteractable;
     Vector3 previousMousePos;
     bool isInteracting;
 
 	void Update()
     {
-	    if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitHinfo;
@@ -17,25 +17,29 @@ public class InteractionController : MonoBehaviour
             {
                 isInteracting = true;
                 previousMousePos = Input.mousePosition;
-                card = hitHinfo.transform.gameObject.GetComponent<CardController>();
-                card.StartUse();
+                currentInteractable = hitHinfo.transform.gameObject.GetComponent<InteractableController>();
+                currentInteractable.StartUse();
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
             isInteracting = false;
-            if (card != null)
+            if (currentInteractable != null)
             {
-                card.FinishUse();
+                currentInteractable.FinishUse();
             }
         }
         else if (isInteracting && Input.GetMouseButton(0))
         {
             Vector3 deltaPos = Input.mousePosition - previousMousePos;
             previousMousePos = Input.mousePosition;
-            if (card != null)
+            if (currentInteractable != null)
             {
-                card.MoveCard(deltaPos);
+                currentInteractable.UpdatePos(deltaPos);
+                if (Input.GetMouseButtonDown(1))
+                {
+                    currentInteractable.StartAltUse();
+                }
             }
         }
         Cursor.visible = !isInteracting;

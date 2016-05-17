@@ -1,32 +1,36 @@
 ﻿using UnityEngine;
 
-public class CardController : MonoBehaviour
+public class CardController : InteractableController
 {
     Rigidbody myRigidbody;
-    bool isActive;
     const float ScreenToWorldDelta = 0.0025f;
+    bool isFacingDown = true;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
     }
 
-    public void StartUse()
+    public override void StartUse()
     {
-        isActive = true;
         myRigidbody.useGravity = false;
         Vector3 pos = transform.position;
         pos.y = 1.1f;
         transform.position = pos;
     }
 
-    public void FinishUse()
+    public override void FinishUse()
     {
-        isActive = false;
         myRigidbody.useGravity = true;
     }
 
-    public void MoveCard(Vector3 deltaPos)
+    public override void StartAltUse()
+    {
+        gameObject.transform.up = isFacingDown ? Vector3.down : Vector3.up;
+        isFacingDown = !isFacingDown;
+    }
+
+    public override void UpdatePos(Vector3 deltaPos)
     {
         Vector3 pos = transform.position;
         pos.x += deltaPos.x * ScreenToWorldDelta;
