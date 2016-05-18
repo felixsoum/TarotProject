@@ -5,7 +5,8 @@ public class CardController : InteractableController
     Rigidbody myRigidbody;
     const float ScreenToWorldDelta = 0.0025f;
     bool isFacingDown = true;
-    bool isInUse;
+    bool isFlipping;
+    const float FlipSpeed = 1000f;
 
     void Awake()
     {
@@ -14,23 +15,28 @@ public class CardController : InteractableController
 
     void Update()
     {
-        if (!isInUse)
+        if (!isFlipping)
         {
             return;
         }
         Vector3 targetUp = isFacingDown ? Vector3.up : Vector3.down;
-        if (Vector3.Distance(gameObject.transform.up, targetUp) < 1f)
+        float distance = Vector3.Distance(gameObject.transform.up, targetUp);
+        if (distance > 0.25f)
         {
-            //Rotate code
-            //gameObject.transform.up = isFacingDown ? Vector3.down : Vector3.up;
-
+            gameObject.transform.Rotate(0, 0, FlipSpeed*Time.deltaTime);
+        }
+        else
+        {
+            Vector3 rot = gameObject.transform.eulerAngles;
+            rot.z = isFacingDown ? 0 : 180;
+            gameObject.transform.eulerAngles = Vector3.Lerp(gameObject.transform.eulerAngles, rot, 100f*Time.deltaTime);
         }
     }
 
     public override void StartUse()
     {
-        isInUse = true;
         myRigidbody.useGravity = false;
+        myRigidbody.isKinematic = true;
         Vector3 pos = transform.position;
         pos.y = 1.1f;
         transform.position = pos;
@@ -38,14 +44,15 @@ public class CardController : InteractableController
 
     public override void FinishUse()
     {
-        isInUse = false;
         myRigidbody.useGravity = true;
+        myRigidbody.isKinematic = false;
+        isFlipping = false;
     }
 
     public override void StartAltUse()
     {
-        gameObject.transform.up = isFacingDown ? Vector3.down : Vector3.up;
         isFacingDown = !isFacingDown;
+        isFlipping = true;
     }
 
     public override void UpdatePos(Vector3 deltaPos)
