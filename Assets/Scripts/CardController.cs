@@ -5,14 +5,31 @@ public class CardController : InteractableController
     Rigidbody myRigidbody;
     const float ScreenToWorldDelta = 0.0025f;
     bool isFacingDown = true;
+    bool isInUse;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        if (!isInUse)
+        {
+            return;
+        }
+        Vector3 targetUp = isFacingDown ? Vector3.up : Vector3.down;
+        if (Vector3.Distance(gameObject.transform.up, targetUp) < 1f)
+        {
+            //Rotate code
+            //gameObject.transform.up = isFacingDown ? Vector3.down : Vector3.up;
+
+        }
+    }
+
     public override void StartUse()
     {
+        isInUse = true;
         myRigidbody.useGravity = false;
         Vector3 pos = transform.position;
         pos.y = 1.1f;
@@ -21,6 +38,7 @@ public class CardController : InteractableController
 
     public override void FinishUse()
     {
+        isInUse = false;
         myRigidbody.useGravity = true;
     }
 
