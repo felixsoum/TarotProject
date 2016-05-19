@@ -279,6 +279,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &373463483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 373463481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ff22f5b9e0aff4e951e816df5df491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwForce: 10
 --- !u!64 &373463486
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -335,7 +347,7 @@ Prefab:
       value: Card (1)
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6461204, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &402563902
@@ -441,8 +453,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6461204, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1060514853
@@ -527,19 +538,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.55148506
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.65618426
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.51027286
+      value: -0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.07005785
+      value: 0.49999994
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_RootOrder
@@ -547,20 +558,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.20571
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.20571
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.20571
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b33c1edfd6c37204eb2deb82f09b76a2, type: 2}
+    - target: {fileID: 100000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f37119ede8660c44582ddbc28d642e33, type: 3}
   m_IsPrefabParent: 0
@@ -650,7 +665,7 @@ Prefab:
       value: Card (3)
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6461204, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1370249302
@@ -913,6 +928,6 @@ Prefab:
       value: Card (2)
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 6461204, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
