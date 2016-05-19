@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.26 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.26;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False;n:type:ShaderForge.SFN_Final,id:2865,x:32719,y:32712,varname:node_2865,prsc:2|diff-7736-RGB,spec-3553-OUT;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32199,y:32578,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:a075d74f04e17fb4e973e4f1e2dd1e7e,ntxv:0,isnm:False|UVIN-5406-OUT;n:type:ShaderForge.SFN_Slider,id:3553,x:32328,y:33030,ptovrint:False,ptlb:Metallic,ptin:_Metallic,varname:_Metallic,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;n:type:ShaderForge.SFN_TexCoord,id:9180,x:31172,y:32600,varname:node_9180,prsc:2,uv:0;n:type:ShaderForge.SFN_Time,id:1084,x:31181,y:32983,varname:node_1084,prsc:2;n:type:ShaderForge.SFN_Sin,id:2884,x:31372,y:33042,varname:node_2884,prsc:2|IN-1084-T;n:type:ShaderForge.SFN_Append,id:5406,x:31985,y:32578,varname:node_5406,prsc:2|A-9180-U,B-7249-OUT;n:type:ShaderForge.SFN_Multiply,id:7249,x:31975,y:32938,varname:node_7249,prsc:2|A-2975-OUT,B-9914-OUT;n:type:ShaderForge.SFN_RemapRange,id:9914,x:31774,y:33042,varname:node_9914,prsc:2,frmn:-1,frmx:1,tomn:0.9,tomx:1.1|IN-2884-OUT;n:type:ShaderForge.SFN_RemapRange,id:2975,x:31639,y:32865,varname:node_2975,prsc:2,frmn:0,frmx:1,tomn:-1,tomx:1|IN-9180-V;proporder:7736-3553;pass:END;sub:END;*/
+/*SF_DATA;ver:1.26;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:True,hqlp:False,rprd:True,enco:False,rmgx:True,rpth:0,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False;n:type:ShaderForge.SFN_Final,id:2865,x:32719,y:32712,varname:node_2865,prsc:2|diff-1584-OUT,spec-3553-OUT;n:type:ShaderForge.SFN_Tex2d,id:7736,x:32094,y:32635,ptovrint:True,ptlb:Base Color,ptin:_MainTex,varname:_MainTex,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,tex:a075d74f04e17fb4e973e4f1e2dd1e7e,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Slider,id:3553,x:32328,y:33030,ptovrint:False,ptlb:Metallic,ptin:_Metallic,varname:_Metallic,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;n:type:ShaderForge.SFN_Time,id:1084,x:31465,y:32914,varname:node_1084,prsc:2;n:type:ShaderForge.SFN_Sin,id:2884,x:31647,y:32914,varname:node_2884,prsc:2|IN-1084-T;n:type:ShaderForge.SFN_TexCoord,id:2139,x:31480,y:32726,varname:node_2139,prsc:2,uv:0;n:type:ShaderForge.SFN_ComponentMask,id:7941,x:31647,y:32726,varname:node_7941,prsc:2,cc1:0,cc2:-1,cc3:-1,cc4:-1|IN-2139-UVOUT;n:type:ShaderForge.SFN_Add,id:3721,x:31914,y:32912,varname:node_3721,prsc:2|A-7941-OUT,B-2884-OUT;n:type:ShaderForge.SFN_Add,id:1584,x:32382,y:32778,varname:node_1584,prsc:2|A-7736-RGB,B-8425-OUT;n:type:ShaderForge.SFN_Multiply,id:8425,x:32166,y:32912,varname:node_8425,prsc:2|A-3721-OUT,B-997-OUT;n:type:ShaderForge.SFN_Vector1,id:997,x:31904,y:33086,varname:node_997,prsc:2,v1:0.1;proporder:7736-3553;pass:END;sub:END;*/
 
 Shader "Shader Forge/FelixShader1" {
     Properties {
@@ -142,12 +142,9 @@ Shader "Shader Forge/FelixShader1" {
 ////// Specular:
                 float NdotL = max(0, dot( normalDirection, lightDirection ));
                 float LdotH = max(0.0,dot(lightDirection, halfDirection));
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
                 float4 node_1084 = _Time + _TimeEditor;
-                float node_2884 = sin(node_1084.g);
-                float node_7249 = ((i.uv0.g*2.0+-1.0)*(node_2884*0.1+1.0));
-                float2 node_5406 = float2(i.uv0.r,node_7249);
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_5406, _MainTex));
-                float3 diffuseColor = _MainTex_var.rgb; // Need this for specular when using metallic
+                float3 diffuseColor = (_MainTex_var.rgb+((i.uv0.r+sin(node_1084.g))*0.1)); // Need this for specular when using metallic
                 float specularMonochrome;
                 float3 specularColor;
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, _Metallic, specularColor, specularMonochrome );
@@ -261,12 +258,9 @@ Shader "Shader Forge/FelixShader1" {
 ////// Specular:
                 float NdotL = max(0, dot( normalDirection, lightDirection ));
                 float LdotH = max(0.0,dot(lightDirection, halfDirection));
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
                 float4 node_1084 = _Time + _TimeEditor;
-                float node_2884 = sin(node_1084.g);
-                float node_7249 = ((i.uv0.g*2.0+-1.0)*(node_2884*0.1+1.0));
-                float2 node_5406 = float2(i.uv0.r,node_7249);
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_5406, _MainTex));
-                float3 diffuseColor = _MainTex_var.rgb; // Need this for specular when using metallic
+                float3 diffuseColor = (_MainTex_var.rgb+((i.uv0.r+sin(node_1084.g))*0.1)); // Need this for specular when using metallic
                 float specularMonochrome;
                 float3 specularColor;
                 diffuseColor = DiffuseAndSpecularFromMetallic( diffuseColor, _Metallic, specularColor, specularMonochrome );
@@ -350,12 +344,9 @@ Shader "Shader Forge/FelixShader1" {
                 
                 o.Emission = 0;
                 
+                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(i.uv0, _MainTex));
                 float4 node_1084 = _Time + _TimeEditor;
-                float node_2884 = sin(node_1084.g);
-                float node_7249 = ((i.uv0.g*2.0+-1.0)*(node_2884*0.1+1.0));
-                float2 node_5406 = float2(i.uv0.r,node_7249);
-                float4 _MainTex_var = tex2D(_MainTex,TRANSFORM_TEX(node_5406, _MainTex));
-                float3 diffColor = _MainTex_var.rgb;
+                float3 diffColor = (_MainTex_var.rgb+((i.uv0.r+sin(node_1084.g))*0.1));
                 float specularMonochrome;
                 float3 specColor;
                 diffColor = DiffuseAndSpecularFromMetallic( diffColor, _Metallic, specColor, specularMonochrome );
