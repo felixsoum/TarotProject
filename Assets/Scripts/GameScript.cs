@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -6,6 +7,9 @@ using System.Collections;
 public class GameScript : GameEventHandler
 {
 	public DialogController dialogController = null;
+
+	// Screen overlay effect
+	public Animator overlayAnimator = null;
 
 	// Set the card object the subject will pick during the script scenario.
 	public GameObject cardPicked = null;
@@ -68,6 +72,7 @@ public class GameScript : GameEventHandler
 			{
 				dialogController.Queue(new DialogLine("<b>S</b>: Please!", 0.2f));
 				dialogController.Queue(new DialogLine("<b>S</b>: Gargh!", 1.5f));
+				StartCoroutine(DelayFadeReload(1.0f));
 			}
 		));
 	}
@@ -92,12 +97,6 @@ public class GameScript : GameEventHandler
 		AdvanceAct(interactable.gameObject);
 	}
 
-	private IEnumerator DelayCardPick( float delay )
-	{
-		yield return new WaitForSeconds(delay);
-		PickCard(cardPicked);
-	}
-
 	private void PickCard( GameObject cardObj )
 	{
 		var rigidbody = cardObj.GetComponent<Rigidbody>();
@@ -105,5 +104,26 @@ public class GameScript : GameEventHandler
 		{
 			rigidbody.AddForce(cardPickImpulse, ForceMode.Impulse);
 		}
+	}
+
+	private IEnumerator DelayCardPick( float delay )
+	{
+		yield return new WaitForSeconds(delay);
+		PickCard(cardPicked);
+	}
+
+	private IEnumerator DelayFadeReload( float delay )
+	{
+		// Ghetto fade reload
+		yield return new WaitForSeconds(delay);
+		overlayAnimator.Play("FadeOut");
+		yield return new WaitForSeconds(overlayAnimator.GetCurrentAnimatorStateInfo(0).length);
+		DontDestroyOnLoad(overlayAnimator.gameObject);
+		DontDestroyOnLoad(this.gameObject);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		overlayAnimator.Play("FadeIn");
+		yield return new WaitForSeconds(overlayAnimator.GetCurrentAnimatorStateInfo(0).length);
+		Destroy(overlayAnimator.gameObject);
+		Destroy(this.gameObject);
 	}
 }
