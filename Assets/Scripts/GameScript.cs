@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameScript : GameEventHandler
 {
 	public DialogController dialogController = null;
+
+	// Set the card object the subject will pick during the script scenario.
+	public GameObject cardPicked = null;
+	public Vector3 cardPickImpulse = Vector3.back;
 
 	private List<GameScriptAct> acts = new List<GameScriptAct>();
 	private int actIndex = 0;
@@ -38,6 +43,7 @@ public class GameScript : GameEventHandler
 			() =>
 			{
 				dialogController.Queue(new DialogLine("<b>S</b>: Okay, okay! Put the knife away!", 3.8f));
+				StartCoroutine(DelayCardPick(2.0f));
 			}
 		));
 	}
@@ -56,5 +62,20 @@ public class GameScript : GameEventHandler
 	public override void OnObjectTrigger( ObjectTriggerArea area )
 	{
 		AdvanceAct(area.gameObject);
+	}
+
+	private IEnumerator DelayCardPick( float delay )
+	{
+		yield return new WaitForSeconds(delay);
+		PickCard(cardPicked);
+	}
+
+	private void PickCard( GameObject cardObj )
+	{
+		var rigidbody = cardObj.GetComponent<Rigidbody>();
+		if( rigidbody != null )
+		{
+			rigidbody.AddForce(cardPickImpulse, ForceMode.Impulse);
+		}
 	}
 }

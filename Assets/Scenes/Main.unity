@@ -857,6 +857,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogController: {fileID: 660472302}
+  cardPicked: {fileID: 1372809128}
+  cardPickImpulse: {x: 0, y: 0, z: -4}
 --- !u!114 &1370249305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -870,6 +872,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handlers:
   - {fileID: 1370249304}
+--- !u!1 &1372809128 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 176562, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+  m_PrefabInternal: {fileID: 948124906}
 --- !u!1 &1717400532
 GameObject:
   m_ObjectHideFlags: 0
