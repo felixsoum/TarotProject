@@ -40,3 +40,26 @@ public class ObjectTriggerAreaCondition<TargetType> : GameScriptCondition
 	}
 }
 
+// Checks if the card flipped is the picked card
+public class CardPickFlippedCondition : GameScriptCondition
+{
+	public GameObject CardPicked { get; private set; }
+
+	public CardPickFlippedCondition( GameObject cardPicked )
+	{
+		CardPicked = cardPicked;
+	}
+
+	public override bool Satisfied( GameObject gameObject )
+	{
+		return gameObject == CardPicked;
+	}
+}
+
+public class InteractionAltUseCondition<InteractableType> : GameScriptCondition
+{
+	public override bool Satisfied( GameObject gameObject )
+	{
+		return gameObject.GetComponent<InteractableType>() != null;
+	}
+}

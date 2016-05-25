@@ -38,6 +38,7 @@ public class KnifeController : InteractableController
 
     public override void StartAltUse()
     {
+        base.StartAltUse();
         isThrown = true;
         FinishUse();
         myRigidbody.AddForce(throwForce * Vector3.forward, ForceMode.Impulse);

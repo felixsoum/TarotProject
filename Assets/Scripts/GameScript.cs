@@ -26,7 +26,7 @@ public class GameScript : GameEventHandler
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Place),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>T</b>: Did you kill this person...?", 2.2f));
+				dialogController.Queue(new DialogLine("<b>T</b>: Did you kill this person...?", 2.0f));
 				dialogController.Queue(new DialogLine("<b>S</b>: No, no I swear it wasn't me!", 3.0f));
 			}
 		));
@@ -35,15 +35,39 @@ public class GameScript : GameEventHandler
 			() =>
 			{
 				dialogController.Queue(new DialogLine("<b>T</b>: Pick a card.", 1.5f));
-				dialogController.Queue(new DialogLine("<b>S</b>: I don't want to play your games.", 3.8f));
+				dialogController.Queue(new DialogLine("<b>S</b>: I don't want to play your games.", 2.5f));
 			}
 		));
 		acts.Add(new GameScriptAct(
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>S</b>: Okay, okay! Put the knife away!", 3.8f));
+				dialogController.Queue(new DialogLine("<b>S</b>: Okay, okay! Put the knife away!", 3.5f));
 				StartCoroutine(DelayCardPick(2.0f));
+			}
+		));
+		acts.Add(new GameScriptAct(
+			new CardPickFlippedCondition(cardPicked),
+			() =>
+			{
+				dialogController.Queue(new DialogLine("", 0.5f));
+				dialogController.Queue(new DialogLine("<b>S</b>: What is the meaning of this?", 2.5f));
+				dialogController.Queue(new DialogLine("<b>T</b>: Death...!", 1.5f));
+			}
+		));
+		acts.Add(new GameScriptAct(
+			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
+			() =>
+			{
+				dialogController.Queue(new DialogLine("<b>S</b>: No! It is not like that!", 2.5f));
+			}
+		));
+		acts.Add(new GameScriptAct(
+			new InteractionAltUseCondition<KnifeController>(),
+			() =>
+			{
+				dialogController.Queue(new DialogLine("<b>S</b>: Please!", 0.2f));
+				dialogController.Queue(new DialogLine("<b>S</b>: Gargh!", 1.5f));
 			}
 		));
 	}
@@ -62,6 +86,10 @@ public class GameScript : GameEventHandler
 	public override void OnObjectTrigger( ObjectTriggerArea area )
 	{
 		AdvanceAct(area.gameObject);
+	}
+	public override void OnInteractionAltUse( InteractableController interactable )
+	{
+		AdvanceAct(interactable.gameObject);
 	}
 
 	private IEnumerator DelayCardPick( float delay )

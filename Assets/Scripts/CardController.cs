@@ -51,6 +51,7 @@ public class CardController : InteractableController
 
     public override void StartAltUse()
     {
+        base.StartAltUse();
         isFacingDown = !isFacingDown;
         isFlipping = true;
     }

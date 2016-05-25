@@ -290,6 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ff22f5b9e0aff4e951e816df5df491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEventHandler: {fileID: 1370249305}
   throwForce: 10
 --- !u!64 &373463486
 MeshCollider:
@@ -346,6 +347,10 @@ Prefab:
       propertyPath: m_Name
       value: Card (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11420914, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+      propertyPath: gameEventHandler
+      value: 
+      objectReference: {fileID: 1370249305}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
@@ -481,6 +486,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11420914, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+      propertyPath: gameEventHandler
+      value: 
+      objectReference: {fileID: 1370249305}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
   m_IsPrefabParent: 0
@@ -812,6 +821,10 @@ Prefab:
       propertyPath: m_Name
       value: Card (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 11420914, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+      propertyPath: gameEventHandler
+      value: 
+      objectReference: {fileID: 1370249305}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
@@ -1095,6 +1108,10 @@ Prefab:
       propertyPath: m_Name
       value: Card (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11420914, guid: c39014e99f580e94b81aa983927c24ca, type: 2}
+      propertyPath: gameEventHandler
+      value: 
+      objectReference: {fileID: 1370249305}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: c39014e99f580e94b81aa983927c24ca, type: 2}

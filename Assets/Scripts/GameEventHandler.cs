@@ -8,4 +8,10 @@ public abstract class GameEventHandler : MonoBehaviour
 	{
 	}
 
+
+	// When using an object's alt-use interaction
+	public virtual void OnInteractionAltUse( InteractableController interactable )
+	{
+	}
+
 }

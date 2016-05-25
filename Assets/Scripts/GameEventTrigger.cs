@@ -12,4 +12,12 @@ public class GameEventTrigger : GameEventHandler
 			handler.OnObjectTrigger(area);
 		}
 	}
+
+	public override void OnInteractionAltUse( InteractableController interactable )
+	{
+		foreach( var handler in handlers )
+		{
+			handler.OnInteractionAltUse(interactable);
+		}
+	}
 }
