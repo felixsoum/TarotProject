@@ -40,6 +40,10 @@ public class InteractionController : MonoBehaviour
                 {
                     currentInteractable.StartAltUse();
                 }
+                else if (Input.GetMouseButtonUp(1))
+                {
+                    currentInteractable.FinishAltUse();
+                }
             }
         }
         Cursor.visible = !isInteracting;

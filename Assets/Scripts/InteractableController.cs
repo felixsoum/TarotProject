@@ -16,5 +16,7 @@ public class InteractableController : MonoBehaviour
         }
     }
 
+    public virtual void FinishAltUse() {}
+
     public virtual void UpdatePos(Vector3 deltaPos) {}
 }
