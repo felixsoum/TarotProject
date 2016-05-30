@@ -27,7 +27,7 @@ public class GameScript : GameEventHandler
 	{
 		acts = new List<GameScriptAct>();
 		acts.Add(new GameScriptAct(
-			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Place),
+			new ObjectTriggerAreaCondition<PhotographController>(ObjectTriggerArea.Type.Place),
 			() =>
 			{
 				dialogController.Queue(new DialogLine("<b>T</b>: Did you kill this person...?", 2.0f));
