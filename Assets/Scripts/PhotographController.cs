@@ -6,18 +6,18 @@ public class PhotographController : InteractableController
     public Vector3 zoomTargetRotation;
     Vector3 originalPosition;
     Vector3 originalRotation;
-    Rigidbody myRigidbody;
     const float ScreenToWorldDelta = 0.0025f;
     bool isZooming;
     const float ZoomSpeed = 1000f;
 
-    void Awake()
+    public override void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody>();
+        base.Awake();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
     }
 
     public override void StartUse()
@@ -53,6 +53,10 @@ public class PhotographController : InteractableController
 
     public override void UpdatePos(Vector3 deltaPos)
     {
+        if (!myRigidbody.isKinematic)
+        {
+            return;
+        }
         Vector3 pos = transform.position;
         pos.x += deltaPos.x * ScreenToWorldDelta;
         if (!isZooming)

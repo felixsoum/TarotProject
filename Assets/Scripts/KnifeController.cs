@@ -3,17 +3,17 @@
 public class KnifeController : InteractableController
 {
     public float throwForce = 10f;
-    Rigidbody myRigidbody;
     const float ScreenToWorldDelta = 0.0025f;
     bool isThrown;
 
-    void Awake()
+    public override void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody>();
+        base.Awake();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (isThrown)
         {
             return;
@@ -44,9 +44,15 @@ public class KnifeController : InteractableController
         myRigidbody.AddForce(throwForce * Vector3.forward, ForceMode.Impulse);
     }
 
+    public override void ResetPosition()
+    {
+        base.ResetPosition();
+        isThrown = false;
+    }
+
     public override void UpdatePos(Vector3 deltaPos)
     {
-        if (isThrown)
+        if (isThrown || !myRigidbody.isKinematic)
         {
             return;
         }

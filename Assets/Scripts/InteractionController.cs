@@ -7,7 +7,7 @@ public class InteractionController : MonoBehaviour
     Vector3 previousMousePos;
     bool isInteracting;
 
-	void Update()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {

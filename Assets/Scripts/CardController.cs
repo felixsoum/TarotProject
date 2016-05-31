@@ -2,19 +2,19 @@
 
 public class CardController : InteractableController
 {
-    Rigidbody myRigidbody;
     const float ScreenToWorldDelta = 0.0025f;
     bool isFacingDown = true;
     bool isFlipping;
     const float FlipSpeed = 1000f;
 
-    void Awake()
+    public override void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody>();
+        base.Awake();
     }
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (!isFlipping)
         {
             return;
@@ -58,6 +58,11 @@ public class CardController : InteractableController
 
     public override void UpdatePos(Vector3 deltaPos)
     {
+        if (!myRigidbody.isKinematic)
+        {
+            return;
+        }
+
         Vector3 pos = transform.position;
         pos.x += deltaPos.x * ScreenToWorldDelta;
         pos.z += deltaPos.y * ScreenToWorldDelta;
