@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -10,6 +11,11 @@ public class GameScript : GameEventHandler
 
 	// Screen overlay effect
 	public Animator overlayAnimator = null;
+	public Canvas overlayFadeCanvas = null;
+
+	// Game over overlay parent canvas and text object
+	public Canvas overlayGameOverCanvas = null;
+	public Text overlayGameOverText = null;
 
 	// Set the card object the subject will pick during the script scenario.
 	public GameObject cardPicked = null;
@@ -17,7 +23,7 @@ public class GameScript : GameEventHandler
 
 	private List<GameScriptAct> acts = new List<GameScriptAct>();
 	private int actIndex = 0;
-	
+
 	void Start()
 	{
 		SetupActs();
@@ -72,12 +78,12 @@ public class GameScript : GameEventHandler
 			{
 				dialogController.Queue(new DialogLine("<b>S</b>: Please!", 0.2f));
 				dialogController.Queue(new DialogLine("<b>S</b>: Gargh!", 1.5f));
-				StartCoroutine(DelayFadeReload(1.0f));
+				StartCoroutine(DelayFadeGameOver(1.0f, "You have carried out the death penalty successfully".ToUpper()));
 			}
 		));
 	}
 
-	private void AdvanceAct( GameObject source = null )
+	private bool AdvanceAct( GameObject source = null )
 	{
 		var gameObj = source != null ? source : this.gameObject;
 		var nextAct = actIndex < acts.Count ? acts[actIndex] : null;
@@ -85,7 +91,9 @@ public class GameScript : GameEventHandler
 		{
 			nextAct.Action();
 			++actIndex;
+			return true;
 		}
+		return false;
 	}
 
 	public override void OnObjectTrigger( ObjectTriggerArea area )
@@ -94,7 +102,16 @@ public class GameScript : GameEventHandler
 	}
 	public override void OnInteractionAltUse( InteractableController interactable )
 	{
-		AdvanceAct(interactable.gameObject);
+		if( !AdvanceAct(interactable.gameObject) && interactable is KnifeController )
+		{
+			// Game over when killing at the wrong script order.
+			StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
+		}
+	}
+
+	public void LoadScene( string sceneName )
+	{
+		StartCoroutine(DelayFadeLoadScene(0.0f, sceneName));
 	}
 
 	private void PickCard( GameObject cardObj )
@@ -112,18 +129,38 @@ public class GameScript : GameEventHandler
 		PickCard(cardPicked);
 	}
 
-	private IEnumerator DelayFadeReload( float delay )
+	private IEnumerator DelayFadeLoadScene( float delay, string sceneName )
 	{
 		// Ghetto fade reload
+		overlayAnimator.Play("Idle");
+		yield return new WaitForSeconds(delay);
+		overlayFadeCanvas.sortingOrder = overlayGameOverCanvas.sortingOrder + 1;
+		overlayAnimator.Play("FadeOut");
+		float fadeTime = overlayAnimator.GetCurrentAnimatorStateInfo(0).length;
+		yield return new WaitForSeconds(fadeTime);
+		overlayGameOverCanvas.gameObject.SetActive(false);
+		StartCoroutine(DelayDestroyObject(fadeTime, overlayAnimator.gameObject));
+		StartCoroutine(DelayDestroyObject(fadeTime, this.gameObject));
+		SceneManager.LoadScene(sceneName);
+		overlayAnimator.Play("FadeIn");
+	}
+
+	private IEnumerator DelayFadeGameOver( float delay, string gameOverText )
+	{
+		// Ghetto fade show
 		yield return new WaitForSeconds(delay);
 		overlayAnimator.Play("FadeOut");
-		yield return new WaitForSeconds(overlayAnimator.GetCurrentAnimatorStateInfo(0).length);
-		DontDestroyOnLoad(overlayAnimator.gameObject);
-		DontDestroyOnLoad(this.gameObject);
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		overlayAnimator.Play("FadeIn");
-		yield return new WaitForSeconds(overlayAnimator.GetCurrentAnimatorStateInfo(0).length);
-		Destroy(overlayAnimator.gameObject);
-		Destroy(this.gameObject);
+		float fadeTime = overlayAnimator.GetCurrentAnimatorStateInfo(0).length;
+		yield return new WaitForSeconds(fadeTime);
+		overlayGameOverCanvas.gameObject.SetActive(true);
+		overlayGameOverCanvas.sortingOrder = overlayFadeCanvas.sortingOrder + 1;
+		overlayGameOverText.text = gameOverText;
+	}
+
+	private IEnumerator DelayDestroyObject( float delay, GameObject gameObject )
+	{
+		DontDestroyOnLoad(gameObject);
+		yield return new WaitForSeconds(delay);
+		Destroy(gameObject);
 	}
 }
