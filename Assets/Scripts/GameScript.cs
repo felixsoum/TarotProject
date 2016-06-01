@@ -105,7 +105,7 @@ public class GameScript : GameEventHandler
 		if( !AdvanceAct(interactable.gameObject) && interactable is KnifeController )
 		{
 			// Game over when killing at the wrong script order.
-			StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
+			//StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
 		}
 	}
 
