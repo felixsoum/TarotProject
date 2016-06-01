@@ -63,3 +63,11 @@ public class InteractionAltUseCondition<InteractableType> : GameScriptCondition
 		return gameObject.GetComponent<InteractableType>() != null;
 	}
 }
+
+public class NoCondition : GameScriptCondition
+{
+	public override bool Satisfied( GameObject gameObject )
+	{
+		return true;
+	}
+}

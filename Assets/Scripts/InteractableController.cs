@@ -69,7 +69,7 @@ public class InteractableController : MonoBehaviour
     {
         if( gameEventHandler != null )
         {
-            gameEventHandler.OnInteractionAltUse(this);
+            gameEventHandler.OnEvent( GameEventType.InteractionAltUse, this);
         }
     }
 

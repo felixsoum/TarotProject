@@ -23,7 +23,7 @@ public class ObjectTriggerArea : MonoBehaviour
 	void OnTriggerEnter( Collider other )
 	{
 		objects.Add(other.gameObject);
-		gameEventHandler.OnObjectTrigger(this);
+		gameEventHandler.OnEvent(GameEventType.ObjectTrigger, this);
 	}
 
 	void OnTriggerExit( Collider other )

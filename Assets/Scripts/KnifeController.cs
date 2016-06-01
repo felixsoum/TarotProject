@@ -36,6 +36,10 @@ public class KnifeController : InteractableController
             victimRigidbody.isKinematic = false;
             victimRigidbody.AddForce(throwForce * Vector3.forward, ForceMode.Impulse);
             victimRigidbody.velocity = Vector3.zero;
+            if ( gameEventHandler != null )
+            {
+                gameEventHandler.OnEvent(GameEventType.KnifeStab);
+            }
         }
 
         if (isThrown)

@@ -5,19 +5,26 @@ public class GameEventTrigger : GameEventHandler
 {
 	public List<GameEventHandler> handlers = new List<GameEventHandler>();
 
-	public override void OnObjectTrigger( ObjectTriggerArea area )
+	// Just redirect to every handler.
+	public override void OnEvent( GameEventType type )
 	{
 		foreach( var handler in handlers )
 		{
-			handler.OnObjectTrigger(area);
+			handler.OnEvent(type);
 		}
 	}
-
-	public override void OnInteractionAltUse( InteractableController interactable )
+	public override void OnEvent( GameEventType type, ObjectTriggerArea area )
 	{
 		foreach( var handler in handlers )
 		{
-			handler.OnInteractionAltUse(interactable);
+			handler.OnEvent(type, area);
+		}
+	}
+	public override void OnEvent( GameEventType type, InteractableController interactable )
+	{
+		foreach( var handler in handlers )
+		{
+			handler.OnEvent(type, interactable);
 		}
 	}
 }

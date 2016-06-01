@@ -32,7 +32,8 @@ public class GameScript : GameEventHandler
 	private void SetupActs()
 	{
 		acts = new List<GameScriptAct>();
-		acts.Add(new GameScriptAct(
+		acts.Add(new GameScriptAct( 
+			GameEventType.ObjectTrigger,
 			new ObjectTriggerAreaCondition<PhotographController>(ObjectTriggerArea.Type.Place),
 			() =>
 			{
@@ -41,6 +42,7 @@ public class GameScript : GameEventHandler
 			}
 		));
 		acts.Add(new GameScriptAct(
+			GameEventType.ObjectTrigger,
 			new ObjectTriggerAreaCondition<CardController>(ObjectTriggerArea.Type.Place, 4),
 			() =>
 			{
@@ -49,6 +51,7 @@ public class GameScript : GameEventHandler
 			}
 		));
 		acts.Add(new GameScriptAct(
+			GameEventType.ObjectTrigger,
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
 			() =>
 			{
@@ -57,6 +60,7 @@ public class GameScript : GameEventHandler
 			}
 		));
 		acts.Add(new GameScriptAct(
+			GameEventType.InteractionAltUse,
 			new CardPickFlippedCondition(cardPicked),
 			() =>
 			{
@@ -66,6 +70,7 @@ public class GameScript : GameEventHandler
 			}
 		));
 		acts.Add(new GameScriptAct(
+			GameEventType.ObjectTrigger,
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
 			() =>
 			{
@@ -73,7 +78,8 @@ public class GameScript : GameEventHandler
 			}
 		));
 		acts.Add(new GameScriptAct(
-			new InteractionAltUseCondition<KnifeController>(),
+			GameEventType.KnifeStab,
+			new NoCondition(),
 			() =>
 			{
 				dialogController.Queue(new DialogLine("<b>S</b>: Please!", 0.2f));
@@ -83,11 +89,11 @@ public class GameScript : GameEventHandler
 		));
 	}
 
-	private bool AdvanceAct( GameObject source = null )
+	private bool AdvanceAct( GameEventType gameEvent, GameObject source = null )
 	{
 		var gameObj = source != null ? source : this.gameObject;
 		var nextAct = actIndex < acts.Count ? acts[actIndex] : null;
-		if( nextAct != null && nextAct.Condition.Satisfied(gameObj) )
+		if( nextAct != null && nextAct.EventType == gameEvent && nextAct.Condition.Satisfied(gameObj) )
 		{
 			nextAct.Action();
 			++actIndex;
@@ -96,16 +102,20 @@ public class GameScript : GameEventHandler
 		return false;
 	}
 
-	public override void OnObjectTrigger( ObjectTriggerArea area )
+	public override void OnEvent( GameEventType type, ObjectTriggerArea area )
 	{
-		AdvanceAct(area.gameObject);
+		AdvanceAct(type, area.gameObject);
 	}
-	public override void OnInteractionAltUse( InteractableController interactable )
+	public override void OnEvent( GameEventType type, InteractableController interactable )
 	{
-		if( !AdvanceAct(interactable.gameObject) && interactable is KnifeController )
+		AdvanceAct(type, interactable.gameObject);
+	}
+	public override void OnEvent( GameEventType type )
+	{
+		if( !AdvanceAct(type) )
 		{
 			// Game over when killing at the wrong script order.
-			//StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
+			StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
 		}
 	}
 
