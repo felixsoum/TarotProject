@@ -21,6 +21,10 @@ public class GameScript : GameEventHandler
 	public GameObject cardPicked = null;
 	public Vector3 cardPickImpulse = Vector3.back;
 
+	// Set the photo object the subject will push away
+	public GameObject photoObject = null;
+	public Vector3 photoPushImpulse = Vector3.back;
+
 	private List<GameScriptAct> acts = new List<GameScriptAct>();
 	private int actIndex = 0;
 
@@ -37,8 +41,9 @@ public class GameScript : GameEventHandler
 			new ObjectTriggerAreaCondition<PhotographController>(ObjectTriggerArea.Type.Place),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>T</b>: Did you kill this person...?", 2.0f));
-				dialogController.Queue(new DialogLine("<b>S</b>: No, no I swear it wasn't me!", 3.0f));
+				dialogController.Queue(new DialogLine("<b>Player</b>: Did you kill this person...?", 2.0f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: No, no I swear it wasn't me!", 3.0f));
+				StartCoroutine(DelayPushObject(2.0f, photoObject, photoPushImpulse));
 			}
 		));
 		acts.Add(new GameScriptAct(
@@ -46,8 +51,8 @@ public class GameScript : GameEventHandler
 			new ObjectTriggerAreaCondition<CardController>(ObjectTriggerArea.Type.Place, 4),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>T</b>: Pick a card.", 1.5f));
-				dialogController.Queue(new DialogLine("<b>S</b>: I don't want to play your games.", 2.5f));
+				dialogController.Queue(new DialogLine("<b>Player</b>: Pick a card.", 1.5f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: I don't want to play your games.", 2.5f));
 			}
 		));
 		acts.Add(new GameScriptAct(
@@ -55,7 +60,7 @@ public class GameScript : GameEventHandler
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>S</b>: Okay, okay! Put the knife away!", 3.5f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: Okay, okay! Put the knife away!", 3.5f));
 				StartCoroutine(DelayCardPick(2.0f));
 			}
 		));
@@ -65,8 +70,8 @@ public class GameScript : GameEventHandler
 			() =>
 			{
 				dialogController.Queue(new DialogLine("", 0.5f));
-				dialogController.Queue(new DialogLine("<b>S</b>: What is the meaning of this?", 2.5f));
-				dialogController.Queue(new DialogLine("<b>T</b>: Death...!", 1.5f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: What is the meaning of this?", 2.5f));
+				dialogController.Queue(new DialogLine("<b>Player</b>: Death...!", 1.5f));
 			}
 		));
 		acts.Add(new GameScriptAct(
@@ -74,7 +79,7 @@ public class GameScript : GameEventHandler
 			new ObjectTriggerAreaCondition<KnifeController>(ObjectTriggerArea.Type.Hover),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>S</b>: No! It is not like that!", 2.5f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: No! It is not like that!", 2.5f));
 			}
 		));
 		acts.Add(new GameScriptAct(
@@ -82,8 +87,8 @@ public class GameScript : GameEventHandler
 			new NoCondition(),
 			() =>
 			{
-				dialogController.Queue(new DialogLine("<b>S</b>: Please!", 0.2f));
-				dialogController.Queue(new DialogLine("<b>S</b>: Gargh!", 1.5f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: Please!", 0.2f));
+				dialogController.Queue(new DialogLine("<b>Suspect 0</b>: Gargh!", 1.5f));
 				StartCoroutine(DelayFadeGameOver(1.0f, "You have carried out the death penalty successfully".ToUpper()));
 			}
 		));
@@ -115,7 +120,7 @@ public class GameScript : GameEventHandler
 		if( !AdvanceAct(type) )
 		{
 			// Game over when killing at the wrong script order.
-			StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for murder without justification".ToUpper()));
+			StartCoroutine(DelayFadeGameOver(1.0f, "Your cards has been revoked for killing without justification".ToUpper()));
 		}
 	}
 
@@ -126,11 +131,22 @@ public class GameScript : GameEventHandler
 
 	private void PickCard( GameObject cardObj )
 	{
-		var rigidbody = cardObj.GetComponent<Rigidbody>();
+		PushObject(cardObj, cardPickImpulse);
+	}
+
+	private void PushObject( GameObject obj, Vector3 impulse )
+	{
+		var rigidbody = obj.GetComponent<Rigidbody>();
 		if( rigidbody != null )
 		{
-			rigidbody.AddForce(cardPickImpulse, ForceMode.Impulse);
+			rigidbody.AddForce(impulse, ForceMode.Impulse);
 		}
+	}
+
+	private IEnumerator DelayPushObject( float delay, GameObject obj, Vector3 impulse )
+	{
+		yield return new WaitForSeconds(delay);
+		PushObject(obj, impulse);
 	}
 
 	private IEnumerator DelayCardPick( float delay )

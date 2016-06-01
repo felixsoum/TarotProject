@@ -1910,6 +1910,8 @@ MonoBehaviour:
   overlayGameOverText: {fileID: 498220683}
   cardPicked: {fileID: 782716287}
   cardPickImpulse: {x: 0, y: 0, z: -4}
+  photoObject: {fileID: 1936027798}
+  photoPushImpulse: {x: 0, y: 0, z: -4}
 --- !u!114 &1370249305
 MonoBehaviour:
   m_ObjectHideFlags: 0
